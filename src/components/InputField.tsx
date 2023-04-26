@@ -15,10 +15,7 @@ const InputField = ({ todo, setTodo, addHandler }: Props) => {
       className="input"
       onSubmit={(e) => {
         addHandler(e);
-        inputRef.current?.blur();
         inputRef.current?.focus();
-
-        console.log(e);
       }}
     >
       <input

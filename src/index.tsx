@@ -7,7 +7,8 @@ const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  // When developing "StrictMode" causes an error in droppable. To avoid this you should turn it off
+  // <React.StrictMode>
+  <App />
+  // </React.StrictMode>
 );

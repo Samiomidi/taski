@@ -45,6 +45,7 @@ const SingleTodo = ({ index, todo, todos, setTodos }: Props) => {
           {...provided.dragHandleProps}
           {...provided.draggableProps}
           ref={provided.innerRef}
+          onKeyDown={(e) => (e.key === "Escape" ? setEdit(false) : null)}
         >
           {edit ? (
             <span className="edit__input--box">

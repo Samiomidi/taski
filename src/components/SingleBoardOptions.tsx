@@ -39,7 +39,10 @@ const SingleBoardOptions = ({
   }, [edit]);
 
   return (
-    <form onSubmit={(e) => editHandler(e, +board.id)}>
+    <form
+      onSubmit={(e) => editHandler(e, +board.id)}
+      onKeyDown={(e) => (e.key === "Escape" ? setEdit(false) : null)}
+    >
       <div className="boards__single">
         {edit ? (
           <span className="edit__input--box">

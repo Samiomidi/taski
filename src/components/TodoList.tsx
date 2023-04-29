@@ -25,20 +25,8 @@ const TodoList: React.FC<Props> = ({ todos, setTodos, boards, setBoards }) => {
     }
   };
 
-  const style = {
-    width: `${
-      boards.length <= 2 ? 40 : boards.length < 4 ? 85 / boards.length : 20
-    }vw`,
-    justifyContent: `${boards.length <= 2 ? "center" : "start"}`,
-  };
-
   return (
-    <div
-      className="container"
-      style={{
-        justifyContent: style.justifyContent,
-      }}
-    >
+    <div className="container">
       {boards.map((board) => (
         <Droppable droppableId={board.id} key={board.id}>
           {(provided, snapshot) => {
@@ -47,9 +35,6 @@ const TodoList: React.FC<Props> = ({ todos, setTodos, boards, setBoards }) => {
                 className={`todos ${
                   snapshot.isDraggingOver ? "dragcomplete" : ""
                 }`}
-                style={{
-                  width: style.width,
-                }}
                 ref={provided.innerRef}
                 {...provided.droppableProps}
               >

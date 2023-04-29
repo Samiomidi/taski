@@ -15,7 +15,8 @@
 }
 
 .container {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
   width: 95%;
   margin: 0 auto;
   align-items: flex-start;
@@ -24,12 +25,12 @@
 }
 
 .todos {
-  display: flex;
-  flex-direction: column;
   padding: 15px;
+  grid-column: "span 4";
   border-radius: 5px;
   background-color: var(--dark-black);
 }
+
 .todos__heading {
   font-size: 30px;
   margin-left: 5%;
@@ -87,24 +88,40 @@
 }
 @media (max-width: 1100px) {
   .todos {
-    width: 45%;
-  }
-}
-
-@media (max-width: 700px) {
-  .input {
-    width: 95%;
-  }
-  .todos {
-    width: 95%;
-    margin-bottom: 10px;
+    grid-column: "span 3";
   }
   .container {
     width: 95%;
     flex-direction: column;
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
+@media (max-width: 900px) {
+  .input {
+    width: 95%;
+  }
+  .todos {
+    /* width: 95%; */
+    margin-bottom: 10px;
+  }
+  .container {
+    width: 95%;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (max-width: 500px) {
+  .input {
+    width: 95%;
+  }
+  .todos {
+    margin-bottom: 10px;
+  }
+  .container {
+    width: 95%;
+    grid-template-columns: 1fr;
+  }
+}
 .dragcomplete {
   background-color: var(--semi-light-black);
 }

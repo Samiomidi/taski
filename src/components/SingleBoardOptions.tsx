@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Board, Todo } from "../model";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { MdDone } from "react-icons/md";
+import { MdCancel } from "react-icons/md";
 
 interface Props {
   board: Board;
@@ -21,7 +21,6 @@ const SingleBoardOptions = ({
   const [editBoard, setEditBoard] = useState<string>(board.title);
   const inputRef = useRef<HTMLInputElement>(null);
   const editHandler = (e: React.FormEvent, id: number) => {
-    console.log(id);
     e.preventDefault();
     setBoards(
       boards.map((board) =>
@@ -51,10 +50,7 @@ const SingleBoardOptions = ({
               onChange={(e) => setEditBoard(e.currentTarget.value)}
               className="input"
             />
-            <MdDone
-              className="icon done"
-              onClick={(e) => editHandler(e, +board.id)}
-            />
+            <MdCancel className="icon done" onClick={() => setEdit(false)} />
           </span>
         ) : (
           <span className="todos__heading">{board.title}</span>

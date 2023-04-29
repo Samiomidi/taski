@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Todo } from "../model";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { MdDone } from "react-icons/md";
+import { MdDone, MdCancel } from "react-icons/md";
 import { Draggable } from "react-beautiful-dnd";
 
 interface Props {
@@ -54,10 +54,7 @@ const SingleTodo = ({ index, todo, todos, setTodos }: Props) => {
                 onBlur={() => setEdit(false)}
                 onChange={(e) => setEditTodo(e.target.value)}
               />
-              <MdDone
-                className="icon done"
-                onClick={(e) => editHandler(e, todo.id)}
-              />
+              <MdCancel className="icon done" onClick={() => setEdit(false)} />
             </span>
           ) : todo.isDone ? (
             <s className="todos__single--text">{todo.todo}</s>

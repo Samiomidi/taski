@@ -1,5 +1,6 @@
 import React, { useRef, useState } from "react";
 import "./styles.css";
+import Backdrop from "./ui/Backdrop";
 
 interface Props {
   todo: string;
@@ -21,11 +22,24 @@ const AddCardInput = ({
   const [addCard, setAddCard] = useState<boolean>(false);
 
   return (
-    <>
-      {/* {addCard ? ( */}
+    <div className="center">
+      {addCard && <Backdrop onClick={() => setAddCard(false)} />}
+      <button
+        className={`add-card__btn ${addCard ? "hide" : "show"}`}
+        type="button"
+        onClick={() => {
+          setAddCard(!addCard);
+        }}
+        onBlur={() => {
+          setAddCard(true);
+          inputRef.current?.focus();
+        }}
+      >
+        {btnTitle}
+      </button>
       <form
         ref={formRef}
-        className="add-card"
+        className={`add-card ${addCard ? "show" : "hide"}`}
         onSubmit={(e) => {
           addHandler(e);
           inputRef.current?.focus();
@@ -33,34 +47,27 @@ const AddCardInput = ({
       >
         <input
           ref={inputRef}
-          onBlur={() => setAddCard(false)}
           type="input"
           value={todo}
           onChange={(e) => setTodo(e.target.value)}
           placeholder={placeholder}
-          className={`add-card__input ${addCard ? "show" : "hide"}`}
+          className="add-card__input"
         ></input>
 
         <div className="add-card__btn-group">
-          <button
-            className={`add-card__btn ${!addCard ? "" : "add-card__submit"}`}
-            type="submit"
-            onClick={() => setAddCard(true)}
-          >
-            {btnTitle}
+          <button className="add-card__btn add-card__submit" type="submit">
+            ADD
           </button>
           <button
-            className={`add-card__btn add-card__cancel ${
-              addCard ? "show" : "hide"
-            }`}
-            type="submit"
+            className="add-card__btn add-card__cancel"
+            type="reset"
             onClick={() => setAddCard(false)}
           >
-            Cancel
+            CANCEL
           </button>
         </div>
       </form>
-    </>
+    </div>
   );
 };
 

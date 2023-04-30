@@ -59,7 +59,9 @@ const SingleBoardOptions = ({
             <MdCancel className="cancel" onClick={() => setEdit(false)} />
           </span>
         ) : (
-          <span className="todos__heading">{board.title}</span>
+          <span className="todos__heading" onDoubleClick={() => setEdit(true)}>
+            {board.title}
+          </span>
         )}
 
         {showMenu && <Backdrop onClick={() => setShowMenu(false)} />}

@@ -64,7 +64,12 @@ const SingleTodo = ({ index, todo, todos, setTodos }: Props) => {
           ) : todo.isDone ? (
             <s className="todos__single--text">{todo.todo}</s>
           ) : (
-            <span className="todos__single--text">{todo.todo}</span>
+            <span
+              className="todos__single--text"
+              onDoubleClick={() => setEdit(true)}
+            >
+              {todo.todo}
+            </span>
           )}
 
           {showMenu && <Backdrop onClick={() => setShowMenu(false)} />}

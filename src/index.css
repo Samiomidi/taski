@@ -1,5 +1,8 @@
-html {
-  font-family: sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Neucha&display=swap");
+
+html,
+button {
+  font-family: "Neucha", cursive, sans-serif;
 }
 
 body {
@@ -19,8 +22,6 @@ body {
   background: #5f5f5f;
 }
 
-@import url("https://fonts.googleapis.com/css2?family=Neucha&display=swap");
-
 .App {
   width: 100vw;
   min-height: 100vh;
@@ -28,7 +29,6 @@ body {
   flex-direction: column;
   align-items: center;
   background-color: #2f74c0;
-  font-family: "Neucha", cursive;
 }
 
 .heading {
@@ -44,8 +44,6 @@ body {
   padding: 5px;
   margin: 10px auto;
   border-radius: 5px;
-
-  /* background-color: var(--semi-light-black); */
 }
 @media (max-width: 800px) {
   .heading {

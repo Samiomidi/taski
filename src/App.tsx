@@ -5,79 +5,82 @@ import { Todo, Board } from "./model";
 import TodoList from "./components/TodoList";
 import { DragDropContext, DropResult } from "react-beautiful-dnd";
 import AddCardInput from "./components/AddCardInput";
-const App: React.FC = () => {
-  // const [todo, setTodo] = useState<string>("");
-  const [todos, setTodos] = useState<Todo[]>([
+
+const DUMMY_DATA: { boards: Board[]; todos: Todo[] } = {
+  boards: [
+    { id: "1682770511821", title: "SAMI", cards: Array(0) },
+
+    { id: "1682770515531", title: "VAHID", cards: Array(0) },
+
+    { id: "1682770517477", title: "Completed", cards: Array(0) },
+  ],
+  todos: [
     {
       id: 1682770526870,
-      todo: "1",
+      todo: "Add a search bar to the To-Do list",
       isDone: false,
       parentElId: "1682770511821",
     },
     {
       id: 1682770527333,
-      todo: "2",
-      isDone: false,
+      todo: "Implement drag and drop functionality for reordering tasks",
+      isDone: true,
       parentElId: "1682770511821",
     },
     {
       id: 1682770528172,
-      todo: "3",
+      todo: " Allow users to set due dates for tasks",
       isDone: false,
       parentElId: "1682770511821",
     },
     {
       id: 1682770530288,
-      todo: "4",
+      todo: "Create different categories or tags for tasks",
       isDone: false,
       parentElId: "1682770515531",
     },
     {
       id: 1682770531200,
-      todo: "5",
+      todo: "Add the ability to share tasks with other users",
       isDone: false,
       parentElId: "1682770515531",
     },
     {
       id: 1682770531700,
-      todo: "6",
-      isDone: false,
+      todo: "Implement a reminder system for upcoming due dates",
+      isDone: true,
       parentElId: "1682770515531",
     },
     {
       id: 1682770534927,
-      todo: "7",
+      todo: " Enable users to add notes or comments to tasks",
       isDone: false,
       parentElId: "1682770517477",
     },
     {
       id: 1682770536412,
-      todo: "8",
+      todo: "Add the ability to attach files or documents to tasks",
       isDone: false,
       parentElId: "1682770517477",
     },
     {
       id: 1682770536974,
-      todo: "9",
+      todo: " Implement a priority system for tasks",
       isDone: false,
       parentElId: "1682770517477",
     },
     {
       id: 1682770585738,
-      todo: "10",
+      todo: "Allow users to mark tasks as completed or archived",
       isDone: false,
       parentElId: "1682770517477",
     },
-  ]);
-  // const [completedTodos, setCompletedTodos] = useState<Todo[]>([]);
+  ],
+};
+const App: React.FC = () => {
+  const [todos, setTodos] = useState<Todo[]>(DUMMY_DATA.todos);
 
-  const [boards, setBoards] = useState<Board[]>([
-    { id: "1682770511821", title: "sami", cards: Array(0) },
-
-    { id: "1682770515531", title: "vahid", cards: Array(0) },
-
-    { id: "1682770517477", title: "ali", cards: Array(0) },
-  ]);
+  const [boards, setBoards] = useState<Board[]>(DUMMY_DATA.boards);
   const [board, setBoard] = useState<string>("");
   const addHandler = (e: React.FormEvent) => {
     e.preventDefault();
@@ -109,6 +112,7 @@ const App: React.FC = () => {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="App">
+        <div id="backdrop" />
         <span className="heading">Taski</span>
         <div className="board">
           <AddCardInput
@@ -119,6 +123,7 @@ const App: React.FC = () => {
             placeholder="Enter a title for this board"
           />
         </div>
+
         <TodoList
           todos={todos}
           setTodos={setTodos}

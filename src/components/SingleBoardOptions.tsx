@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { Board, Todo } from "../model";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
 import { MdCancel } from "react-icons/md";
+import { BiDotsVerticalRounded } from "react-icons/bi";
+import Backdrop from "./ui/Backdrop";
 
 interface Props {
   board: Board;
@@ -19,6 +21,7 @@ const SingleBoardOptions = ({
 }: Props) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editBoard, setEditBoard] = useState<string>(board.title);
+  const [showMenu, setShowMenu] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const editHandler = (e: React.FormEvent, id: number) => {
     e.preventDefault();
@@ -53,23 +56,40 @@ const SingleBoardOptions = ({
               onChange={(e) => setEditBoard(e.currentTarget.value)}
               className="input"
             />
-            <MdCancel className="icon done" onClick={() => setEdit(false)} />
+            <MdCancel className="cancel" onClick={() => setEdit(false)} />
           </span>
         ) : (
           <span className="todos__heading">{board.title}</span>
         )}
 
+        {showMenu && <Backdrop onClick={() => setShowMenu(false)} />}
         {!edit && (
-          <div>
-            <span className="icon edit" onClick={() => setEdit(!edit)}>
-              <AiFillEdit />
+          <div className="dots-menu">
+            <span className="dots" onClick={() => setShowMenu(!showMenu)}>
+              <BiDotsVerticalRounded />
             </span>
-            <span
-              className="icon delete"
-              onClick={() => deleteHandler(+board.id)}
-            >
-              <AiFillDelete />
-            </span>
+            {showMenu && (
+              <div className="dots-menu__box">
+                <span
+                  className="icon edit"
+                  onClick={() => {
+                    setEdit(!edit);
+                    setShowMenu(false);
+                  }}
+                >
+                  <AiFillEdit />
+                </span>
+                <span
+                  className="icon delete"
+                  onClick={() => {
+                    deleteHandler(+board.id);
+                    setShowMenu(false);
+                  }}
+                >
+                  <AiFillDelete />
+                </span>
+              </div>
+            )}
           </div>
         )}
       </div>

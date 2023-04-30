@@ -1,8 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Todo } from "../model";
 import { AiFillEdit, AiFillDelete } from "react-icons/ai";
+import { BiDotsVerticalRounded } from "react-icons/bi";
 import { MdDone, MdCancel } from "react-icons/md";
 import { Draggable } from "react-beautiful-dnd";
+import Backdrop from "./ui/Backdrop";
 
 interface Props {
   index: number;
@@ -13,6 +15,8 @@ interface Props {
 const SingleTodo = ({ index, todo, todos, setTodos }: Props) => {
   const [edit, setEdit] = useState<boolean>(false);
   const [editTodo, setEditTodo] = useState<string>(todo.todo);
+  const [showMenu, setShowMenu] = useState<boolean>(false);
+
   const doneHandler = (id: number) => {
     setTodos(
       todos.map((todo) =>
@@ -55,7 +59,7 @@ const SingleTodo = ({ index, todo, todos, setTodos }: Props) => {
                 onBlur={() => setEdit(false)}
                 onChange={(e) => setEditTodo(e.target.value)}
               />
-              <MdCancel className="icon done" onClick={() => setEdit(false)} />
+              <MdCancel className="cancel" onClick={() => setEdit(false)} />
             </span>
           ) : todo.isDone ? (
             <s className="todos__single--text">{todo.todo}</s>
@@ -63,27 +67,44 @@ const SingleTodo = ({ index, todo, todos, setTodos }: Props) => {
             <span className="todos__single--text">{todo.todo}</span>
           )}
 
+          {showMenu && <Backdrop onClick={() => setShowMenu(false)} />}
           {!edit && (
-            <div>
-              <span
-                className="icon edit"
-                onClick={() => {
-                  if (!todo.isDone) {
-                    setEdit(!edit);
-                  }
-                }}
-              >
-                <AiFillEdit />
+            <div className="dots-menu">
+              <span className="dots" onClick={() => setShowMenu(!showMenu)}>
+                <BiDotsVerticalRounded />
               </span>
-              <span
-                className="icon delete"
-                onClick={() => deleteHandler(todo.id)}
-              >
-                <AiFillDelete />
-              </span>
-              <span className="icon done" onClick={() => doneHandler(todo.id)}>
-                <MdDone />
-              </span>
+              {showMenu && !snapshot.isDragging && (
+                <div className="dots-menu__box">
+                  <span
+                    className="icon edit"
+                    onClick={() => {
+                      if (!todo.isDone) {
+                        setEdit(!edit);
+                        setShowMenu(false);
+                      }
+                    }}
+                  >
+                    <AiFillEdit />
+                  </span>
+                  <span
+                    className="icon delete"
+                    onClick={() => {
+                      deleteHandler(todo.id);
+                    }}
+                  >
+                    <AiFillDelete />
+                  </span>
+                  <span
+                    className="icon done"
+                    onClick={() => {
+                      doneHandler(todo.id);
+                      setShowMenu(false);
+                    }}
+                  >
+                    <MdDone />
+                  </span>
+                </div>
+              )}
             </div>
           )}
         </form>

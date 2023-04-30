@@ -2,8 +2,9 @@
   --semi-light-black: #535456;
   --semi-dark-black: #404143;
   --dark-black: #101214;
-  --light-blue: #a4bae7b7;
-  --semi-light-blue: #6375cf98;
+  --extra-light-blue: #a4bae7b7;
+  --light-blue: #6375cf98;
+  --semi-light-blue: #388ae2;
   --semi-dark-blue: #021885;
   --dark-blue: #02136a;
   --extra-dark-blue: #010e50;
@@ -101,7 +102,7 @@
 }
 .icon:hover {
   transform: scale(1.05);
-  background-color: var(--semi-light-blue);
+  background-color: var(--extra-light-blue);
 }
 .edit {
   color: var(--semi-dark-blue);
@@ -206,14 +207,14 @@
   border-radius: 5px;
   border: none;
   font-size: 15px;
-  background-color: #2f74c0;
+  background-color: var(--dark-blue);
   color: white;
   transition: 0.2s all;
-  box-shadow: 0 0 10px black;
+  box-shadow: 0 0 3px var(--semi-dark-black);
 }
 
 .add-card__btn:hover {
-  background-color: #388ae2;
+  background-color: var(--semi-light-blue);
 }
 
 .add-card__btn:active {

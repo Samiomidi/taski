@@ -1,4 +1,4 @@
-# Weather Forecast Application
+# Great Task Management App
 
 ![Vercel](https://vercelbadge.vercel.app/api/Samiomidi/taski)
 

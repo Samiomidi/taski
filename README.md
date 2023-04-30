@@ -6,7 +6,7 @@
 
 ### <a href="https://taski-seven.vercel.app/">LIVE DEMO</a>
 
-## Weather Forecast Starter Pack Description
+## Task Management Pack Description
 
 This application has designed as a React-Typescript app and has the ability to define the Boards and Tasks in an unlimited way with drag and drop capability.
 

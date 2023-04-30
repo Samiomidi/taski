@@ -70,9 +70,13 @@
 }
 .edit__input--box {
   display: flex;
+  width: 100%;
+  gap: 10px;
 }
 .edit__input--box input {
   outline: none;
+  border: transparent;
+  border-radius: 5px;
   flex: 1;
 }
 .dots-menu {

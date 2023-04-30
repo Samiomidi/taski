@@ -20,7 +20,7 @@ const AddCardInput = ({
   const inputRef = useRef<HTMLInputElement>(null);
   const formRef = useRef<HTMLFormElement>(null);
   const [addCard, setAddCard] = useState<boolean>(false);
-
+  const [errorMsg, setErrorMsg] = useState<boolean>();
   return (
     <div className="center">
       {addCard && <Backdrop onClick={() => setAddCard(false)} />}
@@ -32,6 +32,7 @@ const AddCardInput = ({
         }}
         onBlur={() => {
           setAddCard(true);
+          setErrorMsg(false);
           inputRef.current?.focus();
         }}
       >
@@ -40,8 +41,16 @@ const AddCardInput = ({
       <form
         ref={formRef}
         className={`add-card ${addCard ? "show" : "hide"}`}
+        onKeyDown={(e) => (e.key === "Escape" ? setAddCard(false) : null)}
         onSubmit={(e) => {
-          addHandler(e);
+          e.preventDefault();
+          if (todo.trim() === "") {
+            setErrorMsg(true);
+          } else {
+            setErrorMsg(false);
+            addHandler(e);
+          }
+
           inputRef.current?.focus();
         }}
       >
@@ -49,11 +58,20 @@ const AddCardInput = ({
           ref={inputRef}
           type="input"
           value={todo}
-          onChange={(e) => setTodo(e.target.value)}
+          onChange={(e) => {
+            if (e.target.value.trim() !== "") {
+              setErrorMsg(false);
+            }
+            setTodo(e.target.value);
+          }}
           placeholder={placeholder}
           className="add-card__input"
-        ></input>
-
+        />
+        {errorMsg && (
+          <span>
+            <p className="error">Enter a title</p>
+          </span>
+        )}
         <div className="add-card__btn-group">
           <button className="add-card__btn add-card__submit" type="submit">
             ADD

@@ -14,8 +14,6 @@ interface Props {
 const TodoList: React.FC<Props> = ({ todos, setTodos, boards, setBoards }) => {
   const [todo, setTodo] = useState<string>("");
   const addHandler = (e: React.FormEvent) => {
-    e.preventDefault();
-
     const parentElId =
       e.currentTarget.parentElement?.parentElement?.dataset?.rbdDroppableId;
 

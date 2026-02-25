@@ -110,3 +110,16 @@ npm run lint       # lint web app
 - ایندکس ترکیبی روی `user_id, event_name, created_at` اضافه شده.
 - ثبت eventها به‌صورت batch پیاده‌سازی شده تا فشار API کمتر شود.
 - برای scale تحلیلی در آینده می‌توانید pipeline به ClickHouse اضافه کنید.
+
+---
+
+## Deploy on Vercel (Monorepo)
+
+اگر پروژه روی Vercel deploy نمی‌شود، معمولاً علت این است که Vercel در ریشه ریپو دستور `npm run build` را اجرا می‌کند و سعی می‌کند همزمان `apps/web` و `apps/api` را build کند.
+
+برای این ریپو باید فقط فرانت‌اند Next.js deploy شود:
+
+- `buildCommand`: `npm run build -w apps/web`
+- `devCommand`: `npm run dev:web`
+
+این تنظیمات داخل `vercel.json` اضافه شده‌اند تا build فقط برای `apps/web` انجام شود.

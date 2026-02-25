@@ -1,41 +1,112 @@
-# Great Task Management App
+# Taski Full-stack Rewrite (Next.js + Node.js)
 
-![Vercel](https://vercelbadge.vercel.app/api/Samiomidi/taski)
+این ریپو الان به یک **monorepo** تبدیل شده که شامل این دو اپ است:
 
-[![Great Task Management App](taski-screenshot.png?raw=true "Great Task Management App")](https://taski-seven.vercel.app/)
+- `apps/web`: فرانت‌اند با **Next.js 14**
+- `apps/api`: بک‌اند با **Fastify + PostgreSQL**
 
-### <a href="https://taski-seven.vercel.app/">LIVE DEMO</a>
+## Stack نهایی پیشنهادی
 
-## Task Management Pack Description
+- **Frontend:** Next.js (App Router)
+- **Backend:** Node.js + Fastify
+- **Primary DB:** PostgreSQL
+- **Behavior analytics (phase-2):** Redis Queue + ClickHouse (اختیاری)
 
-This application has designed as a React-Typescript app and has the ability to define the Boards and Tasks in an unlimited way with drag and drop capability.
+---
 
-## 1. Make sure you have NODE installed!
+## Quick start
 
-Firstly, you will need to download the latest version of Node by <a href="https://nodejs.org/en/download/">CLICKING HERE</a>
+### 1) پیش‌نیازها
 
-## 2. Clone the repo!
+- Node.js 20+
+- Docker + Docker Compose
 
-Next, you will need to run the following command in the Terminal to clone the repo onto your machine.
-
-`git clone https://github.com/Samiomidi/taski.git`
-
-## 3. Install Dependancies
-
-Next, you need to install all the dependancies using:
-
-`npm install`
-
-## 4.Getting Started
-
-First, run the development server:
+### 2) نصب پکیج‌ها
 
 ```bash
-npm run start
-# or
-yarn start
+npm install
 ```
 
-## Copyright
+### 3) اجرای دیتابیس‌ها
 
-Feel free to use for learning or your portfolio. Don't claim as your own.
+```bash
+docker compose up -d
+```
+
+### 4) تنظیم env
+
+```bash
+cp apps/api/.env.example apps/api/.env
+cp apps/web/.env.local.example apps/web/.env.local
+```
+
+### 5) اجرای full-stack
+
+```bash
+npm run dev
+```
+
+- Web: http://localhost:3000
+- API: http://localhost:4000
+- Health check: http://localhost:4000/health
+
+---
+
+## API endpoints
+
+### Tasks
+
+- `GET /tasks` → لیست آخرین تسک‌ها
+- `POST /tasks` → ساخت تسک جدید
+
+Body:
+
+```json
+{
+  "title": "Plan Q2 roadmap",
+  "description": "Align with product and data teams"
+}
+```
+
+### Events (User behavior)
+
+- `POST /events/batch` → ثبت batch از رفتار کاربر
+
+Body:
+
+```json
+{
+  "userId": "u_123",
+  "events": [
+    {
+      "eventName": "task_created",
+      "properties": {
+        "source": "web"
+      }
+    }
+  ]
+}
+```
+
+- `GET /analytics/top-events` → top eventها در ۷ روز اخیر
+
+---
+
+## Scripts
+
+```bash
+npm run dev        # web + api together
+npm run dev:web    # only nextjs
+npm run dev:api    # only fastify
+npm run build      # build all apps
+npm run typecheck  # typecheck all apps
+npm run lint       # lint web app
+```
+
+---
+
+## Notes for scaling
+
+- ایندکس ترکیبی روی `user_id, event_name, created_at` اضافه شده.
+- ثبت eventها به‌صورت batch پیاده‌سازی شده تا فشار API کمتر شود.
+- برای scale تحلیلی در آینده می‌توانید pipeline به ClickHouse اضافه کنید.
